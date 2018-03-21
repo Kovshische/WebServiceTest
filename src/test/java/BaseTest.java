@@ -12,6 +12,7 @@ public class BaseTest {
 
     private static final String TEST_SITE = "http://www.thomas-bayer.com/sqlrest/CUSTOMER/";
     private static final String CURRENT_CUSTOMER_URI = "http://www.thomas-bayer.com/sqlrest/CUSTOMER/2";
+    private static final String CURRENT_CUSTOMER_URI_DELETE = "http://www.thomas-bayer.com/sqlrest/CUSTOMER/217365";
     private static final String xml = "<CUSTOMER> \n" +
             "<ID>217365</ID>\n" +
             "<FIRSTNAME>VALERA    VALERA</FIRSTNAME>\n" +
@@ -34,7 +35,7 @@ public class BaseTest {
         System.out.println("getCustomerTest");
     }
 
-    @Test
+    @Test (priority = 4)
     public void createUser (){
         RestAssured.given()
                 .contentType(ContentType.XML)
@@ -43,5 +44,12 @@ public class BaseTest {
                 .then().statusCode(201);
         System.out.println("createUser");
     }
+
+    @Test (priority = 5)
+    public void deleteUser (){
+        RestAssured.delete(CURRENT_CUSTOMER_URI_DELETE).
+                then().statusCode(200);
+    }
+
 
 }
